@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Sign Up Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f0f0;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h2 {
+            color: #e91e63;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+        }
+        .popup {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .yes {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .switch {
+            font-size: 14px;
+            color: #555;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .message {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #e91e63;
+            text-align: center;
+        }
+        .footer {
+            font-size: 12px;
+            color: #555;
+            margin-top: 20px;
+        }
+        .successMessage {
+            display: none;
+            font-size: 16px;
+            color: #4CAF50;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Login & Sign Up Form -->
+<div class="container" id="loginForm">
+    <h2>Login</h2>
+    <input type="text" id="loginUsername" placeholder="Username" required>
+    <input type="password" id="loginPassword" placeholder="Password" required>
+    <button onclick="login()">Login</button>
+    <p class="switch" onclick="showSignUp()">Don't have an account? Sign Up</p>
+    <div class="footer">Made by: Mohamed Mmdoh</div> <!-- Footer text added -->
+</div>
+
+<!-- Sign Up Form -->
+<div class="container" id="signUpForm" style="display:none;">
+    <h2>Sign Up</h2>
+    <input type="text" id="signUpUsername" placeholder="Username" required>
+    <input type="password" id="signUpPassword" placeholder="Password" required>
+    <button onclick="signUp()">Sign Up</button>
+    <p class="switch" onclick="showLogin()">Already have an account? Login</p>
+    <div class="footer">Made by: Mohamed Mmdoh</div> <!-- Footer text added -->
+</div>
+
+<!-- Valentine's Message -->
+<div class="popup" id="popupMessage">
+    <h2>Will you be my Valentine? ❤️</h2>
+    <button class="yes" onclick="showSuccessMessage()">Yes</button>
+    <div class="message">مفيش لا انت تعبانه في دماغك ولا اي يعني بعد التعب دا كله عشان اعمله مخصوص عشانك عايزه تقولي لا</div>
+    <div class="successMessage" id="successMessage">اختيار موفق! 💖</div> <!-- New success message -->
+</div>
+
+<script>
+    // Function to show the Sign Up form
+    function showSignUp() {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('signUpForm').style.display = 'block';
+    }
+
+    // Function to show the Login form
+    function showLogin() {
+        document.getElementById('signUpForm').style.display = 'none';
+        document.getElementById('loginForm').style.display = 'block';
+    }
+
+    // Function to handle Sign Up
+    function signUp() {
+        let username = document.getElementById('signUpUsername').value;
+        let password = document.getElementById('signUpPassword').value;
+
+        // Simple validation for Sign Up (You can improve this with more checks)
+        if (username && password) {
+            localStorage.setItem('username', username);
+            localStorage.setItem('password', password);
+            alert("Account created successfully! You can now login.");
+            showLogin();  // Switch to the Login form after Sign Up
+        } else {
+            alert("Please fill in both fields!");
+        }
+    }
+
+    // Function to handle Login
+    function login() {
+        let username = document.getElementById('loginUsername').value;
+        let password = document.getElementById('loginPassword').value;
+
+        // Retrieve stored username and password
+        let storedUsername = localStorage.getItem('username');
+        let storedPassword = localStorage.getItem('password');
+
+        // Simple validation for Login
+        if (username === storedUsername && password === storedPassword) {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('popupMessage').style.display = 'block';
+        } else {
+            alert("Invalid username or password!");
+        }
+    }
+
+    // Function to show the success message when 'Yes' is clicked
+    function showSuccessMessage() {
+        document.getElementById('successMessage').style.display = 'block';  // Show the success message
+    }
+</script>
+
+</body>
+</html>
